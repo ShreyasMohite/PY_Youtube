@@ -93,6 +93,11 @@ class Youtubes:
                     tkinter.messagebox.askretrycancel("Info","Network Error/Something went wrong")
 
 
+        def  thread_video():
+            t1=threading.Thread(target=Download_video)
+            t1.start()
+
+
 
 
 
@@ -118,6 +123,10 @@ class Youtubes:
                 except:
                     tkinter.messagebox.askretrycancel("INFORMATION","Network Error/Something went wrong")
 
+        def  thread_audio():
+            t1=threading.Thread(target=Download_audio)
+            t1.start()
+
 
         
 
@@ -132,7 +141,7 @@ class Youtubes:
         MainFrame.place(x=0,y=0)
         
 
-        self.original1 = Image.open ("C:\\Users\\SHREYAS\\Desktop\\shreyas python\\youtube_py\\PY_youtube\\unnamed.png")
+        self.original1 = Image.open ("C:\\Users\\SHREYAS\\Desktop\\shreyas python\\youtubepy\\PY_youtube\\unnamed.png")
         resized1 = self.original1.resize((540, 270),Image.ANTIALIAS)
         self.image1 = ImageTk.PhotoImage(resized1)
         bglab1=Label(MainFrame,image=self.image1).place(x=0,y=0)
@@ -140,35 +149,50 @@ class Youtubes:
         #MainLableFrame=LabelFrame(MainFrame,text="Enter Your Video Url",font=("times new roman",14,"bold"),width=499,height=300,fg="red")
         #MainLableFrame.place(x=1,y=0)
 
-        Lab=Label(MainFrame,text="Paste your url",font=("times new roman",12,"bold"),fg="cyan",bg="black")
+        Lab=Label(MainFrame,text="Paste your url",font=("times new roman",12,"bold"),
+                  fg="cyan",bg="black")
         Lab.place(x=200,y=30)
         
 
-        url_label=Label(MainFrame,text="URL :",font=('times new roman',12,'bold'),fg="cyan",bg="black")
+        url_label=Label(MainFrame,text="URL :",font=('times new roman',12,'bold'),
+                        fg="cyan",bg="black")
         url_label.place(x=50,y=80)
         
 
-        url_field=Entry(MainFrame,width=40,textvariable=urls,font=('times new roman',12,'bold'),bg="steelblue",relief=RIDGE,bd=4)
+        url_field=Entry(MainFrame,width=40,textvariable=urls,font=('times new roman',12,'bold'),
+                        bg="steelblue",relief=RIDGE,bd=4)
         url_field.place(x=120,y=80)
 
 
-        Down_but=Button(MainFrame,text="Download Video",command=Download_video,width=15,font=('times new roman',12,'bold'),relief=RIDGE,bd=3,cursor="hand2")
+
+        Down_but=Button(MainFrame,text="Download Video",font=('times new roman',12,'bold'),
+                        command=thread_video,width=15,
+                        relief=RIDGE,bd=3,
+                        cursor="hand2")        
         Down_but.place(x=10,y=200)
         Down_but.bind("<Enter>",on_enter1)
         Down_but.bind("<Leave>",on_leave1)
         
 
-        Down_but_audio=Button(MainFrame,text="Download Audio",command=Download_audio,width=15,font=('times new roman',12,'bold'),relief=RIDGE,bd=3,cursor="hand2")
+        Down_but_audio=Button(MainFrame,text="Download Audio",
+                              command=thread_audio,
+                              width=15,font=('times new roman',12,'bold'),
+                              relief=RIDGE,bd=3,
+                              cursor="hand2")
+        
         Down_but_audio.place(x=172,y=200)
         Down_but_audio.bind("<Enter>",on_enter3)
         Down_but_audio.bind("<Leave>",on_leave3)
 
 
-        Clear_but=Button(MainFrame,text="Clear",width=15,font=('times new roman',12,'bold'),relief=RIDGE,bd=3,cursor="hand2",command=reset)
+        Clear_but=Button(MainFrame,text="Clear",width=15,font=('times new roman',12,'bold'),
+                         relief=RIDGE,bd=3,cursor="hand2",command=reset)
+        
         Clear_but.place(x=335,y=200)
         Clear_but.bind("<Enter>",on_enter2)
         Clear_but.bind("<Leave>",on_leave2)
         
+
 
         prg=Progressbar(MainFrame,length=500,orient=HORIZONTAL,mode='indeterminate')
         prg.place(x=0,y=275)
